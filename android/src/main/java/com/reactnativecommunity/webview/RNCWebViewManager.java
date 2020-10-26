@@ -210,8 +210,13 @@ public class RNCWebViewManager extends SimpleViewManager<WebView> {
         webView.setIgnoreErrFailedForThisURL(url);
 
         RNCWebViewModule module = getModule(reactContext);
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse("https://"));
 
-        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+        try{
+          request = new DownloadManager.Request(Uri.parse(url));
+        }catch (Exception e){
+          e.printStackTrace();
+        }
 
         String fileName = URLUtil.guessFileName(url, contentDisposition, mimetype);
         String downloadMessage = "Downloading " + fileName;
